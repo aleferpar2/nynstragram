@@ -16,6 +16,7 @@ export default async () => {
         post_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         content TEXT,
         url TEXT
+        user_id UUID REFERENCES sa_users(user_id)
     )`
 
     await sql`CREATE TABLE sa_likes( 
@@ -25,3 +26,4 @@ export default async () => {
     )`
 
 return <p>Base de datos seed</p>
+}
