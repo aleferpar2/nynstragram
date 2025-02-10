@@ -1,31 +1,29 @@
-import React from 'react';
-import { HeartIcon } from './@heroicons/react/20/solid';
-import {insertLike} from '../lib/actions';
-import clsx from 'clsx';
-import { useState } from 'react';
+'use client'
 
-export default async ({ post_id, user_id, isLikedInit }) => {
-    let [isLiked, setisLike] = useState(isLikedInit);
-    
+import { HeartIcon } from "@heroicons/react/24/solid"
+import { insertLike, removeLike } from "../lib/actions";
+import clsx from "clsx";
+import { useState } from "react";
 
-    function toogleLike(){
+export default ({post_id, user_id, isLikedInitial}) => {
+
+    let [isLiked, setIsLiked] = useState(isLikedInitial);
+
+    function toogleLike() {
         if (isLiked) {
             removeLike(post_id, user_id);
-            setisLike(false);
-        }
-        else {
+            setIsLiked(false);
+        } else {
             insertLike(post_id, user_id);
-            setisLike(true);  
+            setIsLiked(true);
         }
-        ;
     }
 
-    
-    
-    
-    insertLikePOST();
     return (
+        <HeartIcon onClick={toogleLike} 
+        className={clsx("w-8",{"text-red-600":isLiked})} />
 
-        <HeartIcon onClick={toogleLike} className={clsx('w-8', { 'text-red-600': isLiked })} />
+        
+
     )
 }

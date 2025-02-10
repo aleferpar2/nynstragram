@@ -1,32 +1,24 @@
-import {Auth0Client} from '@auth0/nextjs-auth0/server';
-import {sql} from '@vercel/postgres';
-import {NextResponse} from 'next/server';
+import { Auth0Client } from "@auth0/nextjs-auth0/server"
+import { sql } from '@vercel/postgres';
 
-export default auth0 =new Auth0Client ({
-async onCallback(error, context, session) {
-    if (error) {
-        return NextResponse.redirect(new URL(`/error?error=${error.message}`, process.env.APP_BASE_URL))
-    }
+export const auth0 = new Auth0Client({
+    async beforeSessionSaved(session, idToken) {
+        const { nickname, name, picture, email } = session.user;
 
-    const {nickname, name, picture, email} = session.user;
+        try {
+            await sql`INSERT INTO sa_users(username,name,picture,email) VALUES(
+                ${nickname}, ${name}, ${picture}, ${email}
+            )`
+        } catch(e){}
 
-    try {
-        await sql `INSERT INTO ig_users (user_id, username, name, picture, email)
-        VALUES (${nickname}), ${name}, ${picture}, ${email})`;
+        const user_id = (await sql`SELECT user_id FROM sa_users WHERE email=${email}`).rows[0].user_id;
 
-    }
-    
-    
-    catch (e) {
-        console.error(e);
-    }
-    const user_id =
-    (await sql`SELECT user_id FROM ig_users WHERE user_id =${email} $`).rows[0].user_id;
-    session.user.user_id = user_id;
-
-    return NextResponse.redirect(
-        new URL(context.returnTo || "/", process.env.APP_BASE_URL)
-      )
-   
-}
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            user_id: user_id,
+          },
+        }
+      },
 })

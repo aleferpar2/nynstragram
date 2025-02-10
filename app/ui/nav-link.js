@@ -1,22 +1,25 @@
 'use client'
-import { BeakerIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { BeakerIcon, HomeIcon } from '@heroicons/react/24/solid'
 import clsx from "clsx"
+const { usePathname } = require("next/navigation");
 
+export default ({ruta, texto, icon}) => {
 
-export default function NavLink({ruta, texto}) {
-    
-    const path= usePathname();
+    const objeto = { icon };
+
+    const path = usePathname();
 
     return (
-        <Link href={ruta} className={clsx(
-            "flex gap-2 hover:bg-gray-200 py-1 ps-4",
-            {"font-bold": path === ruta}
-        )}
+        <Link href={ruta} className={clsx( 
+            "flex gap-2 hover:bg-gray-500 py-1 ps-2 pe-4 rounded"
+            , 
+            {
+                "font-bold pointer-events-none": path === ruta
+            })}
         >
-            <BeakerIcon className="w-6 h-6" />
-            <span className="hidden lg:inline">{texto}</span>
+            <objeto.icon className="w-4" />
+            <span className="hidden sm:inline">{texto}</span>
         </Link>
     )
 }
