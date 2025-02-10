@@ -17,7 +17,8 @@ export default async ({params}) => {
         post_id={post.id}
         content={post.content}
         url={post.url}
-        isLikedInicial={like.length > 0} />
+        isLikedInicial={like.length > 0} 
+        />
         </>
     )
 

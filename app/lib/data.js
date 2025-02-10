@@ -7,7 +7,8 @@ export async function getPosts(){
          JOIN sa_users USING(user_id)
          LEFT JOIN sa_likes USING(post_id)
          GROUP BY
-         sa_posts.post_id, content, url, username, sa_users.user_id
+         sa_posts.post_id, content, url, username, sa_users.user_id,
+         picture
          `).rows;
 }
 
