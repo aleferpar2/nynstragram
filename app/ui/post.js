@@ -4,7 +4,7 @@ import Link from "next/link"
 import LikeButton from "./like-button"
 
 
-export default ({user_id, post_id, content, url, isLikedInitial, username}) => {
+export default ({user_id, post_id, content, url, isLikedInitial, username, num_likes}) => {
 
     return (
         <div className="flex flex-col max-w-sm gap-2">
@@ -35,7 +35,7 @@ export default ({user_id, post_id, content, url, isLikedInitial, username}) => {
                     <LikeButton post_id={post_id} user_id={user_id} isLikedInitial={isLikedInitial} />
                     <ChatBubbleLeftIcon className="w-8" />
                 </div>
-                <span>2654 Me gusta</span>
+                <span>{num_likes}</span>
            </div>
            <div>
             <p><span className="font-bold">{username}</span> {content}</p>

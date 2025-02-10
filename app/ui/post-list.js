@@ -20,7 +20,9 @@ export default async () => {
                     isLikedInitial={likes.find(like => like.post_id === post.post_id)}
                     post_id={post.post_id} 
                     content={post.content} 
-                    url={post.url} 
+                    url={post.url}
+                    username={post.username}
+                    num_likes={post.num_likes} 
                 />))
             }
         </div>
