@@ -4,9 +4,12 @@ import { put } from "@vercel/blob"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { useId } from "";
 
 
 export async function createPost(formData){
+
+    const user_id = await useId();
     const { url } = await put(
         'media', 
         formData.get("media"), 
