@@ -3,7 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import LikeButton from "./like-button"
 
-export default ({user_id, post_id, content, url, isLikedInitial}) => {
+
+export default ({user_id, post_id, content, url, isLikedInitial, username}) => {
 
     return (
         <div className="flex flex-col max-w-sm gap-2">
@@ -37,7 +38,7 @@ export default ({user_id, post_id, content, url, isLikedInitial}) => {
                 <span>2654 Me gusta</span>
            </div>
            <div>
-            <p><span className="font-bold">smitegame</span> {content}</p>
+            <p><span className="font-bold">{username}</span> {content}</p>
            </div>
            <div><Link href="#">Ver los 37 comentarios</Link></div>
            <div>

@@ -2,7 +2,7 @@ import { sql } from "@vercel/postgres";
 
 
 export async function getPosts(){
-    return (await sql`SELECT * FROM sa_posts`).rows;
+    return (await sql`SELECT * FROM sa_posts JOIN sa_users USING(user_id)`).rows;
 }
 
 export async function getPost(post_id){

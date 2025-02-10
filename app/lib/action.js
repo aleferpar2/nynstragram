@@ -16,7 +16,7 @@ export async function createPost(formData){
         { access: 'public'}
     );
     const content = formData.get('content');
-    await sql`INSERT INTO sa_posts(content, url) 
+    await sql`INSERT INTO sa_posts(content, url, user_id) 
         VALUES(
             ${content},
             ${url}
